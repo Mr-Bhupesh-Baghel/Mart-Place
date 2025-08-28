@@ -1,46 +1,52 @@
-// --------------------------
+// -------------------------- 
 // Mobile Navigation Toggle
 // --------------------------
-const nav = document.querySelector("nav ul");
-const toggleBtn = document.createElement("button");
-toggleBtn.innerHTML = "☰";
-toggleBtn.classList.add("nav-toggle");
+(() => {
+  const nav = document.querySelector("nav ul");
+  if (!nav) return;
 
-document.querySelector("header .container")?.prepend(toggleBtn);
+  const toggleBtn = document.createElement("button");
+  toggleBtn.innerHTML = "☰";
+  toggleBtn.classList.add("nav-toggle");
 
-toggleBtn.addEventListener("click", () => {
-  nav.classList.toggle("show");
-  toggleBtn.classList.toggle("active");
-});
+  const headerContainer = document.querySelector("header .container");
+  headerContainer?.prepend(toggleBtn);
 
-// --------------------------
-// Cart System
-// --------------------------
-let cartCount = 0;
-const cartBadge = document.createElement("span");
-cartBadge.classList.add("cart-badge");
-cartBadge.textContent = cartCount;
-
-// Add cart icon to header
-const cartIcon = document.createElement("div");
-cartIcon.classList.add("cart-icon");
-cartIcon.innerHTML = "🛒 ";
-cartIcon.appendChild(cartBadge);
-document.querySelector("header .container")?.appendChild(cartIcon);
-
-// Add to Cart buttons functionality
-const addToCartBtns = document.querySelectorAll(".product button");
-
-addToCartBtns.forEach(btn => {
-  btn.addEventListener("click", () => {
-    cartCount++;
-    cartBadge.textContent = cartCount;
-    btn.textContent = "Added!";
-    btn.disabled = true;
-
-    setTimeout(() => {
-      btn.textContent = "Add to Cart";
-      btn.disabled = false;
-    }, 1200);
+  toggleBtn.addEventListener("click", () => {
+    nav.classList.toggle("show");
+    toggleBtn.classList.toggle("active");
   });
-});
+})();
+
+
+
+// Load products from localStorage
+let products = JSON.parse(localStorage.getItem("products")) || [];
+let cartCount = 0;
+
+const productList = document.getElementById("product-list");
+const cartBadge = document.querySelector(".cart-badge");
+
+function renderProducts() {
+  productList.innerHTML = "";
+  products.forEach(p => {
+    const div = document.createElement("div");
+    div.classList.add("product");
+    div.innerHTML = `
+      <img src="${p.image}" alt="${p.name}">
+      <h3>${p.name}</h3>
+      <p>$${p.price}</p>
+      <button class="btn">Add to Cart</button>
+    `;
+
+    div.querySelector("button").addEventListener("click", () => {
+      cartCount++;
+      cartBadge.textContent = cartCount;
+      alert(`${p.name} added to cart!`);
+    });
+
+    productList.appendChild(div);
+  });
+}
+
+renderProducts();

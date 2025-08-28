@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mart Place - Your Online Store</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mart Place - Shop</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <!-- Header Section -->
   <header>
     <div class="container">
       <h1>Mart Place</h1>
+      <div class="cart-icon">🛒 <span class="cart-badge">0</span></div>
       <nav>
         <ul class="nav-links">
           <li><a href="#home" aria-label="Go to Home">Home</a></li>
           <li><a href="#products" aria-label="View Products">Products</a></li>
           <li><a href="#contact" aria-label="Contact Us">Contact</a></li>
+          <li><a href="admin.html" aria-label="admin login">admin login</a></li>
         </ul>
       </nav>
     </div>
@@ -30,58 +34,33 @@
     </div>
   </section>
 
-  <!-- Products Section -->
-  <main>
-    <section id="products" class="products-section">
-      <div class="container">
-        <h2>Our Products</h2>
-        <div class="product-grid">
-          <article class="product">
-            <img src="images/product1.jpg" alt="Product 1 - Stylish Backpack" />
-            <h3>Stylish Backpack</h3>
-            <p class="price">$19.99</p>
-            <button class="btn">Add to Cart</button>
-          </article>
 
-          <article class="product">
-            <img src="images/product2.jpg" alt="Product 2 - Wireless Headphones" />
-            <h3>Wireless Headphones</h3>
-            <p class="price">$29.99</p>
-            <button class="btn">Add to Cart</button>
-          </article>
-
-          <article class="product">
-            <img src="images/product3.jpg" alt="Product 3 - Smart Watch" />
-            <h3>Smart Watch</h3>
-            <p class="price">$39.99</p>
-            <button class="btn">Add to Cart</button>
-          </article>
-        </div>
+  <main class="container">
+    <div id="products">
+      <h2>Products</h2>
+      <div class="product-grid" id="product-list">
+        <!-- Products will load dynamically -->
       </div>
-    </section>
+    </div>
   </main>
-
   <!-- Contact Section -->
   <section id="contact" class="contact-section">
     <div class="container">
       <h2>Contact Us</h2>
-      <p>📞 Phone: +91-9876543210</p>
-      <p>📧 Email: support@martplace.com</p>
+      <p>📞 Phone: XXXXXXXXXX</p>
+      <p>📧 Email: XXXXXXXXXXXXXXX</p>
       <div class="social-links">
-        <a href="#" aria-label="Follow us on Facebook">Facebook</a> | 
-        <a href="#" aria-label="Follow us on Instagram">Instagram</a> | 
+        <a href="#" aria-label="Follow us on Facebook">Facebook</a> |
+        <a href="#" aria-label="Follow us on Instagram">Instagram</a> |
         <a href="#" aria-label="Follow us on Twitter">Twitter</a>
       </div>
     </div>
   </section>
-
-  <!-- Footer Section -->
   <footer>
-    <div class="container">
-      <p>&copy; 2025 Mart Place. All rights reserved.</p>
-    </div>
+    <p>&copy; 2025 Mart Place</p>
   </footer>
 
   <script src="script.js"></script>
 </body>
+
 </html>
