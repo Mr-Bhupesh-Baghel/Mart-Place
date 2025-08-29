@@ -38,3 +38,5 @@ function deleteProduct(index) {
 }
 
 renderProducts();
+
+

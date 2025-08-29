@@ -39,14 +39,26 @@ function renderProducts() {
       <button class="btn">Add to Cart</button>
     `;
 
-    div.querySelector("button").addEventListener("click", () => {
-      cartCount++;
-      cartBadge.textContent = cartCount;
-      alert(`${p.name} added to cart!`);
-    });
+   div.querySelector("button").addEventListener("click", () => { 
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const existing = cart.find(item => item.name === p.name);
+  if (existing) {
+    existing.quantity++;
+  } else {
+    cart.push({ ...p, quantity: 1 });
+  }
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  cartCount++;
+  cartBadge.textContent = cartCount;
+});
+
 
     productList.appendChild(div);
   });
 }
 
 renderProducts();
+
+
+

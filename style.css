@@ -309,3 +309,53 @@ footer p {
   font-weight: bold;
   margin-left: 0.3rem;
 }
+
+/* My card css */
+/* Make cart sticky on top right */
+.cart-container {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.cart-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  border-radius: 25px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.cart-link:hover {
+  background: #f0f0f0;
+}
+
+.cart-icon {
+  font-size: 20px;
+  margin-right: 6px;
+}
+
+.cart-text {
+  margin-right: 8px;
+}
+
+.cart-badge {
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+  position: relative;
+  top: -5px;
+}
+
+
+
