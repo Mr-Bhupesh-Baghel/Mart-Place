@@ -54,9 +54,9 @@
         const div = document.createElement("div");
         div.classList.add("product");
         div.innerHTML = `
-          <img src="${p.image}" alt="${p.name}">
-          <h3>${p.name}</h3>
-          <p>$${p.price}</p>
+          <img src="₹{p.image}" alt="₹{p.name}">
+          <h3>₹{p.name}</h3>
+          <p>₹₹{p.price}</p>
           <button onclick="deleteProduct(${index})">Delete</button>
         `;
         adminProducts.appendChild(div);
