@@ -19,12 +19,21 @@
       padding: 30px;
       border-radius: 15px;
       text-align: center;
-      width: 300px;
+      width: 90%;
+      max-width: 350px;
       box-shadow: 0 0 15px rgba(0,0,0,0.4);
+      animation: fadeIn 1s ease-in;
     }
 
-    .lock-box h2 {
-      margin-bottom: 20px;
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.9);}
+      to {opacity: 1; transform: scale(1);}
+    }
+
+    .lock-icon {
+      font-size: 60px;
+      margin-bottom: 15px;
+      transition: transform 0.5s ease, color 0.5s ease;
     }
 
     .lock-box input {
@@ -34,6 +43,7 @@
       border: 1px solid #ccc;
       border-radius: 8px;
       font-size: 16px;
+      outline: none;
     }
 
     .lock-box button {
@@ -55,13 +65,26 @@
     .message {
       margin-top: 10px;
       font-weight: bold;
-      color: red;
+    }
+
+    /* Wrong password shake */
+    .shake {
+      animation: shake 0.4s;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0px); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0px); }
     }
   </style>
 </head>
 <body>
   <div class="lock-box">
-    <h2>🔒 Enter Password</h2>
+    <div class="lock-icon" id="lock">🔒</div>
+    <h2>Enter Password</h2>
     <input type="password" id="password" placeholder="Enter your password">
     <button onclick="checkPassword()">Unlock</button>
     <p class="message" id="message"></p>
@@ -71,16 +94,23 @@
     function checkPassword() {
       let pass = document.getElementById("password").value;
       let msg = document.getElementById("message");
+      let lock = document.getElementById("lock");
+      let box = document.querySelector(".lock-box");
 
       if (pass === "1234") { // 👈 yahan apna password set karo
         msg.style.color = "green";
         msg.textContent = "Unlocked ✅";
+        lock.textContent = "🔓";
+        lock.style.color = "green";
+        lock.style.transform = "rotate(20deg) scale(1.2)";
         setTimeout(() => {
-          window.location.href = "admin.html"; // 👈 unlocked page ke baad page khul jaayega
-        }, 1000);
+          window.location.href = "Admin.html"; // 👈 unlocked hone ke baad page khul jaayega
+        }, 1200);
       } else {
         msg.style.color = "red";
         msg.textContent = "Wrong Password ❌";
+        box.classList.add("shake");
+        setTimeout(() => box.classList.remove("shake"), 400);
       }
     }
   </script>
