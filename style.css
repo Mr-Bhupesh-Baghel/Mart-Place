@@ -357,5 +357,103 @@ footer p {
   top: -5px;
 }
 
+/* =========================
+   Animations
+========================= */
+
+/* Fade-in effect */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Bounce effect for buttons */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-6px); }
+  60% { transform: translateY(-3px); }
+}
+
+/* Scale-in for products */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Glow effect */
+@keyframes glow {
+  from { box-shadow: 0 0 5px #667eea; }
+  to { box-shadow: 0 0 20px #764ba2; }
+}
+
+/* =========================
+   Apply Animations
+========================= */
+
+/* Header animation */
+header {
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Hero section */
+.hero h2, .hero p {
+  animation: fadeIn 1.5s ease forwards;
+}
+
+/* Buttons bounce on hover */
+.btn:hover {
+  animation: bounce 0.6s;
+}
+
+/* Products load animation */
+.product {
+  animation: scaleIn 0.8s ease forwards;
+}
+
+/* Cart icon pulse */
+.cart-container {
+  animation: glow 1.5s infinite alternate;
+}
+
+/* =========================
+   Extra Animations
+========================= */
+
+
+/* Pulse */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Floating effect */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+/* =========================
+   Apply Automatically
+========================= */
+
+
+
+/* Hero content floats */
+.hero h2 {
+  animation: float 3s ease-in-out infinite;
+}
+.hero p {
+  animation: pulse 2.5s infinite;
+}
+
+
+
+/* Buttons auto pulse */
+.btn {
+  animation: pulse 3s infinite;
+}
+
 
 
