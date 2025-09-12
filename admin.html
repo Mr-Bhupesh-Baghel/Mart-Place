@@ -1,52 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Inventory Admin</title>
-  <link rel="stylesheet" href="style.css">
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    form { margin-bottom: 20px; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    form input,
+    form textarea,
+    form button {
+      display: block;
+      margin: 8px 0;
+      padding: 8px;
+      width: 250px;
+    }
+
     .product {
       border: 1px solid #ccc;
       padding: 10px;
       margin: 10px;
       display: inline-block;
-      width: 150px;
+      width: 220px;
       text-align: center;
       border-radius: 8px;
       background: #f9f9f9;
+      vertical-align: top;
     }
+
     .product img {
       width: 100px;
       height: 100px;
       object-fit: cover;
       border-radius: 5px;
     }
-    .product h3 { font-size: 16px; margin: 8px 0 4px; }
-    .product p { color: green; margin: 4px 0; }
-    button { padding: 5px 10px; margin-top: 5px; }
+
+    .product h3 {
+      font-size: 16px;
+      margin: 8px 0 4px;
+    }
+
+    .product p {
+      margin: 4px 0;
+    }
+
+    button {
+      padding: 5px 10px;
+      margin-top: 5px;
+      cursor: pointer;
+    }
+
+    .edit {
+      background: orange;
+      color: white;
+      border: none;
+    }
+
+    .delete {
+      background: red;
+      color: white;
+      border: none;
+    }
   </style>
 </head>
+
 <body>
 
-  <h2>Add Product</h2>
+  <h2>Add / Edit Product</h2>
+  <!-- Form -->
   <form id="product-form">
-    <input type="text" id="name" placeholder="Product Name" required>
-    <input type="number" id="price" placeholder="Price" required>
-    <input type="file" id="image" accept="image/*" required>
-    <button type="submit">Add Product</button>
+    <input type="text" id="name" placeholder="Enter Name" required>
+    <textarea id="description" placeholder="Enter Description" required></textarea>
+    <input type="number" id="price" placeholder="Enter Price" required>
+    <input type="file" id="image" accept="image/*">
+    <button type="submit">Save</button>
   </form>
 
   <h2>Product Inventory</h2>
+  <!-- Display -->
   <div id="admin-products"></div>
 
+
   <script>
-    // Load products
     let products = JSON.parse(localStorage.getItem("products")) || [];
+    let editIndex = null; // track edit mode
 
     const form = document.getElementById("product-form");
     const adminProducts = document.getElementById("admin-products");
+    const imageInput = document.getElementById("image");
 
     function renderProducts() {
       adminProducts.innerHTML = "";
@@ -54,10 +102,12 @@
         const div = document.createElement("div");
         div.classList.add("product");
         div.innerHTML = `
-          <img src="₹{p.image}" alt="₹{p.name}">
-          <h3>₹{p.name}</h3>
-          <p>₹₹{p.price}</p>
-          <button onclick="deleteProduct(${index})">Delete</button>
+          ${p.image ? `<img src="${p.image}" alt="${p.name}">` : ""}
+          <h3>${p.name}</h3>
+          <p><b>Price:</b> ₹${p.price}</p>
+          <p><b>Description:</b> ${p.description}</p>
+          <button class="edit" onclick="editProduct(${index})">Edit</button>
+          <button class="delete" onclick="deleteProduct(${index})">Delete</button>
         `;
         adminProducts.appendChild(div);
       });
@@ -66,20 +116,49 @@
     form.addEventListener("submit", e => {
       e.preventDefault();
       const name = document.getElementById("name").value;
+      const description = document.getElementById("description").value;
       const price = document.getElementById("price").value;
-      const imageFile = document.getElementById("image").files[0];
 
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        const imageBase64 = event.target.result;
-
-        products.push({ name, price, image: imageBase64 });
-        localStorage.setItem("products", JSON.stringify(products));
-        renderProducts();
-        form.reset();
-      };
-      reader.readAsDataURL(imageFile); // convert to Base64
+      if (imageInput.files && imageInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          const image = event.target.result;
+          saveProduct(name, description, price, image);
+        };
+        reader.readAsDataURL(imageInput.files[0]);
+      } else {
+        // agar edit kar rahe hain aur image change nahi ki
+        if (editIndex !== null) {
+          saveProduct(name, description, price, products[editIndex].image);
+        } else {
+          saveProduct(name, description, price, "");
+        }
+      }
     });
+
+    function saveProduct(name, description, price, image) {
+      if (editIndex !== null) {
+        // update mode
+        products[editIndex] = { name, description, price, image };
+        editIndex = null;
+      } else {
+        // add new
+        products.push({ name, description, price, image });
+      }
+      localStorage.setItem("products", JSON.stringify(products));
+      renderProducts();
+      form.reset();
+      imageInput.value = "";
+    }
+
+    function editProduct(index) {
+      const p = products[index];
+      document.getElementById("name").value = p.name;
+      document.getElementById("description").value = p.description;
+      document.getElementById("price").value = p.price;
+      editIndex = index; // store which product is being edited
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
 
     function deleteProduct(index) {
       products.splice(index, 1);
@@ -91,4 +170,5 @@
   </script>
 
 </body>
+
 </html>

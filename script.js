@@ -1,6 +1,6 @@
 // -------------------------- 
 // Mobile Navigation Toggle
-// --------------------------
+// -------------------------- 
 (() => {
   const nav = document.querySelector("nav ul");
   if (!nav) return;
@@ -19,7 +19,6 @@
 })();
 
 
-
 // Load products from localStorage
 let products = JSON.parse(localStorage.getItem("products")) || [];
 let cartCount = 0;
@@ -35,30 +34,27 @@ function renderProducts() {
     div.innerHTML = `
       <img src="${p.image}" alt="${p.name}">
       <h3>${p.name}</h3>
-      <p>$${p.price}</p>
+      <p class="price">$${p.price}</p>
+      <p class="description">${p.description || "No description available."}</p>
       <button class="btn">Add to Cart</button>
     `;
 
-   div.querySelector("button").addEventListener("click", () => { 
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const existing = cart.find(item => item.name === p.name);
-  if (existing) {
-    existing.quantity++;
-  } else {
-    cart.push({ ...p, quantity: 1 });
-  }
-  localStorage.setItem("cart", JSON.stringify(cart));
+    div.querySelector("button").addEventListener("click", () => { 
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const existing = cart.find(item => item.name === p.name);
+      if (existing) {
+        existing.quantity++;
+      } else {
+        cart.push({ ...p, quantity: 1 });
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
 
-  cartCount++;
-  cartBadge.textContent = cartCount;
-});
-
+      cartCount++;
+      cartBadge.textContent = cartCount;
+    });
 
     productList.appendChild(div);
   });
 }
 
 renderProducts();
-
-
-
