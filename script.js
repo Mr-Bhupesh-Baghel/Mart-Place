@@ -34,7 +34,7 @@ function renderProducts() {
     div.innerHTML = `
       <img src="${p.image}" alt="${p.name}">
       <h3>${p.name}</h3>
-      <p class="price">$${p.price}</p>
+      <p class="price">₹${p.price}</p>
       <p class="description">${p.description || "No description available."}</p>
       <button class="btn">Add to Cart</button>
     `;
