@@ -15,7 +15,7 @@ function renderCart() {
         <img src="${item.image}" alt="${item.name}">
         <div>
           <h4>${item.name}</h4>
-          <p>$${item.price} x ${item.quantity}</p>
+          <p>₹${item.price} x ${item.quantity}</p>
         </div>
         <div>
           <button onclick="changeQuantity(${index}, -1)">-</button>
